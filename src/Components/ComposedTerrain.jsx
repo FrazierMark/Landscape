@@ -1,0 +1,44 @@
+/* eslint-disable react/no-unknown-property */
+import { Float } from '@react-three/drei';
+import { useControls } from "leva";
+import Terrain from './Terrain';
+import ClippingPlaneHelper from './ClippinPlaneHelper';
+
+
+const ComposedTerrain = () => {
+
+  const { constant, transparent } = useControls("plane", {
+    transparent: true,
+    constant: { value: 5, min: -1, max: 50, step: 0.01 },
+  });
+
+  const clippingPlanesHelperPositions = [
+    { position: [0, 2.5, -constant], rotation: [0, 0, 0], },
+    {
+      position: [-constant, 2.5, 0],
+      rotation: [0, Math.PI / 2, 0],
+    },
+    {
+      position: [constant, 2.5, 0],
+      rotation: [0, Math.PI / 2, 0],
+    },
+    { position: [0, 2.5, constant], rotation: [0, 0, 0], },
+  ];
+
+  return (
+    <>
+      <Float rotationIntensity={0} floatIntensity={3} speed={1}>
+        <Terrain position={[0, -2.5, 25.7]} constant={constant} />
+        <Terrain position={[0, -2.5, 13]} constant={constant} />
+        <Terrain position={[0, -2.5, 3]} constant={constant} />
+      </Float>
+
+      {clippingPlanesHelperPositions.map((plane, i) => (
+        <ClippingPlaneHelper key={i} position={plane.position} rotation={plane.rotation} constant={constant} transparent={transparent} />
+      ))}
+
+    </>
+  );
+}
+
+export default ComposedTerrain
