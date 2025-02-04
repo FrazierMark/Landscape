@@ -7,24 +7,59 @@ import { useControls } from 'leva';
 
 const Terrain = ({ position = [0, -0, 0], constant }) => {
 
-  const { wireframe, speed } = useControls("Terrain", {
+  const { wireframe, speed, materialType, displacementScale } = useControls("Terrain", {
     wireframe: false,
-    speed: { value: 1, min: 0, max: 5, step: 0.01 }
-  })
-  const terrain = useRef();
+    speed: { value: 1, min: 0, max: 5, step: 0.01 },
+    materialType: {
+      options: {
+        Mountains: 'mountains',
+        MudField: 'mud',
+        Sand: 'sand'
+      },
+      value: 'mountains'
+    },
+    displacementScale: { value: 1, min: 0, max: 5, step: 0.01 }
+  });
+
+  // Load the appropriate materials based on the selected type
+  let materialTextures;
+  switch (materialType) {
+    case 'mountains':
+      materialTextures = [
+        "./mountains/Albedo.png",
+        "./mountains/Displacement3.png",
+        "./mountains/Normal.png",
+        "./mountains/Roughness.png",
+        "./mountains/AO.png",
+        "./mountains/Metalness.png"
+      ];
+      break;
+    case 'mud':
+      materialTextures = [
+        "./mud/Albedo.png",
+        "./mud/Displacement.png",
+        "./mud/Normal.png",
+        "./mud/Roughness.png",
+        "./mud/AO.png"
+      ];
+      break;
+    case 'sand':
+      materialTextures = [
+        "./sand/BaseColor.png",
+        "./sand/Displacement.png",
+        "./sand/Roughness.png",
+        "./sand/Normal.png",
+        "./sand/Roughness.png",
+        "./sand/AO.png"
+      ];
+      break;
+  }
 
   const [colorMap, displacementMap, normalMap, roughnessMap, aoMap, metalness] = useLoader(
-    TextureLoader, [
-    "./mountains/Albedo.png",
-    "./mountains/Displacement3.png",
-    "./mountains/Normal.png",
-    "./mountains/Roughness.png",
-    "./mountains/AO.png",
-    "./mountains/Metalness.png"
-  ]
-    // ["./mud/Albedo.png", "./mud/Displacement.png", "./mud/Normal.png", "./mud/Roughness.png", "./mud/AO.png"]
+    TextureLoader, materialTextures
   );
 
+  const terrain = useRef();
   const materialRef = useRef();
 
   const clippingPlanes = useMemo(() => {
@@ -66,7 +101,7 @@ const Terrain = ({ position = [0, -0, 0], constant }) => {
       receiveShadow
       rotation={[-Math.PI / 2, 0, 0]}
     >
-      <planeGeometry args={[13, 13, 250, 250]} />
+      <planeGeometry args={[13, 13, 150, 150]} />
 
       <meshStandardMaterial
         ref={materialRef}
@@ -74,7 +109,7 @@ const Terrain = ({ position = [0, -0, 0], constant }) => {
         receiveShadow
         map={colorMap}
         displacementMap={displacementMap}
-        displacementScale={1.2}
+        displacementScale={displacementScale}
         normalMap={normalMap}
         roughnessMap={roughnessMap}
         aoMap={aoMap}

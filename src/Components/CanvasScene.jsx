@@ -1,6 +1,6 @@
 import { Canvas } from '@react-three/fiber';
 import { Environment, OrbitControls } from '@react-three/drei';
-import { useFrame } from '@react-three/fiber';
+
 import { Leva } from 'leva';
 import { useRef } from 'react';
 import Lights from './Lights';
@@ -17,7 +17,7 @@ function Box(props) {
   // );
   return (
     <mesh ref={ref} {...props} castShadow>
-      <boxGeometry />
+      <sphereGeometry />
       <meshStandardMaterial color='orange' />
     </mesh>
   );
@@ -27,7 +27,7 @@ const CanvasScene = () => {
   return (
     <Canvas
       shadows
-      gl={{ localClippingEnabled: true, logarithmicDepthBuffer: true }}
+      gl={{ localClippingEnabled: true }}
       camera={{ position: [0, 0, 14] }}
       style={{
         position: 'absolute',
@@ -37,8 +37,6 @@ const CanvasScene = () => {
         zIndex: 0,
       }}
     >
-
-
 
       <Lights />
       <Box position={[0, 0, 0]} />
