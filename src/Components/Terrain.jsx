@@ -3,7 +3,14 @@ import * as THREE from "three";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { useRef, useEffect, useMemo } from 'react';
 import { useFrame, useLoader } from "@react-three/fiber";
+import { useControls } from 'leva';
+
 const Terrain = ({ position = [0, -0, 0], constant }) => {
+
+  const { wireframe, speed } = useControls("Terrain", {
+    wireframe: false,
+    speed: { value: 1, min: 0, max: 5, step: 0.01 }
+  })
   const terrain = useRef();
 
   const [colorMap, displacementMap, normalMap, roughnessMap, aoMap, metalness] = useLoader(
@@ -30,6 +37,7 @@ const Terrain = ({ position = [0, -0, 0], constant }) => {
     ];
 
     // Create the planes with the defined normals
+    // Constant is the distance from origin to plane along vector
     return normals.map((normal) => {
       const plane = new THREE.Plane(normal);
       plane.constant = constant;
@@ -39,12 +47,12 @@ const Terrain = ({ position = [0, -0, 0], constant }) => {
 
   useEffect(() => {
     if (materialRef.current) {
-      materialRef.current.clippingPlanes = clippingPlanes; // Update its clippingPlanes property
+      materialRef.current.clippingPlanes = clippingPlanes;
     }
   }, [clippingPlanes]);
 
   useFrame((state, delta) => {
-    terrain.current.position.z -= delta;
+    terrain.current.position.z -= delta * speed;
 
     if (terrain.current.position.z < -13.0) {
       terrain.current.position.z = 20.0;
@@ -70,7 +78,7 @@ const Terrain = ({ position = [0, -0, 0], constant }) => {
         normalMap={normalMap}
         roughnessMap={roughnessMap}
         aoMap={aoMap}
-        // wireframe={true}
+        wireframe={wireframe}
         clippingPlanes={[clippingPlanes]}
       />
     </mesh>

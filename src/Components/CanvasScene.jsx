@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
+import { Environment, OrbitControls } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { Leva } from 'leva';
 import { useRef } from 'react';
@@ -46,7 +46,7 @@ const CanvasScene = () => {
       <OrbitControls />
       {/* <Leva hidden /> */}
       <Perf position="top-left" />
-
+      <Environment preset="dawn" />
       <ComposedTerrain />
     </Canvas>
   );
