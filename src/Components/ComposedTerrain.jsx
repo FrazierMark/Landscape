@@ -3,6 +3,7 @@ import { Float } from '@react-three/drei';
 import { useControls } from "leva";
 import Terrain from './Terrain';
 import ClippingPlaneHelper from './ClippinPlaneHelper';
+import * as THREE from "three"
 
 
 const ComposedTerrain = () => {
@@ -24,14 +25,15 @@ const ComposedTerrain = () => {
     },
     { position: [0, 2.5, constant], rotation: [0, 0, 0], },
   ];
+  const red = new THREE.Color("red")
+  const blue= new THREE.Color("blue")
+  const green= new THREE.Color("green")
 
   return (
     <>
-      <Float rotationIntensity={0} floatIntensity={3} speed={1}>
-        <Terrain position={[0, -2.5, 25.7]} constant={constant} />
-        <Terrain position={[0, -2.5, 13]} constant={constant} />
-        <Terrain position={[0, -2.5, 3]} constant={constant} />
-      </Float>
+      <Terrain position={[0, -2.5, 29.982]} color={red} constant={constant} />
+      <Terrain position={[0, -2.5, 15]} color={blue} constant={constant} />
+      <Terrain position={[0, -2.5, 0]} color={green} constant={constant} />
 
       {clippingPlanesHelperPositions.map((plane, i) => (
         <ClippingPlaneHelper key={i} position={plane.position} rotation={plane.rotation} constant={constant} transparent={transparent} />

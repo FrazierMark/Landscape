@@ -5,11 +5,12 @@ import { useRef, useEffect, useMemo } from 'react';
 import { useFrame, useLoader } from "@react-three/fiber";
 import { useControls } from 'leva';
 
-const Terrain = ({ position = [0, -0, 0], constant }) => {
+const Terrain = ({ position = [0, -0, 0], constant, color }) => {
 
-  const { wireframe, speed, materialType, displacementScale } = useControls("Terrain", {
+  const { wireframe, speed, materialType, displacementScale, planeColor } = useControls("Terrain", {
     wireframe: false,
-    speed: { value: 1, min: 0, max: 5, step: 0.01 },
+    planeColor: false,
+    speed: { value: 0, min: 0, max: 50, step: 0.01 },
     materialType: {
       options: {
         Mountains: 'mountains',
@@ -109,11 +110,13 @@ const Terrain = ({ position = [0, -0, 0], constant }) => {
     }
   }, [clippingPlanes]);
 
-  useFrame((state, delta) => {
-    terrain.current.position.z -= delta * speed;
+  const speedFactor = 0.1001 * speed
 
-    if (terrain.current.position.z < -13.0) {
-      terrain.current.position.z = 20.0;
+  useFrame((state, delta) => {
+    terrain.current.position.z -= delta * speedFactor;
+
+    if (terrain.current.position.z < -15) {
+      terrain.current.position.z = 29.892;
     }
   });
 
@@ -124,9 +127,10 @@ const Terrain = ({ position = [0, -0, 0], constant }) => {
       receiveShadow
       rotation={[-Math.PI / 2, 0, 0]}
     >
-      <planeGeometry args={[13, 13, 150, 150]} />
+      <planeGeometry args={[16.0068, 15.026, 50, 50]} />
 
       <meshStandardMaterial
+        color={planeColor ? color : ""}
         ref={materialRef}
         castShadow
         receiveShadow

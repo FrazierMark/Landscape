@@ -39,7 +39,7 @@ const CanvasScene = () => {
     >
 
       <Lights />
-      <Box position={[0, 0, 0]} />
+      {/* <Box position={[0, 0, 0]} /> */}
       <ShadowPlane position={[0, 0, -0.5]} />
       <OrbitControls />
       {/* <Leva hidden /> */}
