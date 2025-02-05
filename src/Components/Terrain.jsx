@@ -14,7 +14,9 @@ const Terrain = ({ position = [0, -0, 0], constant }) => {
       options: {
         Mountains: 'mountains',
         MudField: 'mud',
-        Sand: 'sand'
+        Sand: 'sand',
+        Rails: 'rails',
+        Cobblestones: 'cobblestones'
       },
       value: 'mountains'
     },
@@ -47,15 +49,36 @@ const Terrain = ({ position = [0, -0, 0], constant }) => {
       materialTextures = [
         "./sand/BaseColor.png",
         "./sand/Displacement.png",
-        "./sand/Roughness.png",
         "./sand/Normal.png",
         "./sand/Roughness.png",
-        "./sand/AO.png"
+        "./sand/AO.png",
+        "./sand/Gloss.png"
       ];
       break;
+    case 'rails':
+      materialTextures = [
+        "./rails/RAIL_COLOR.png",
+        "./rails/RAIL_DEPTH.png",
+        "./rails/RAIL_NORMAL.png",
+        "./rails/RAIL_ROUGHNESS.png",
+        "./rails/RAIL_AO.png",
+        "./rails/RAIL_GLOSS.png",
+        "./cobblestones/COBBLESTONES_BUMP.png"
+      ]
+      break;
+    case 'cobblestones':
+      materialTextures = [
+        "./cobblestones/COBBLESTONES_COLOR.png",
+        "./cobblestones/COBBLESTONES_DEPTH.png",
+        "./cobblestones/COBBLESTONES_NORMAL.png",
+        "./cobblestones/COBBLESTONES_ROUGHNESS.png",
+        "./cobblestones/COBBLESTONES_AO.png",
+        "./cobblestones/COBBLESTONES_GLOSS.png",
+        "./cobblestones/COBBLESTONES_BUMP.png"
+      ];
   }
 
-  const [colorMap, displacementMap, normalMap, roughnessMap, aoMap, metalness] = useLoader(
+  const [colorMap, displacementMap, normalMap, roughnessMap, aoMap, metalness, bump] = useLoader(
     TextureLoader, materialTextures
   );
 
@@ -113,6 +136,8 @@ const Terrain = ({ position = [0, -0, 0], constant }) => {
         normalMap={normalMap}
         roughnessMap={roughnessMap}
         aoMap={aoMap}
+        metalnessMap={metalness}
+        bumpMap={bump}
         wireframe={wireframe}
         clippingPlanes={[clippingPlanes]}
       />
