@@ -17,8 +17,8 @@ function Box(props) {
   // );
   return (
     <mesh ref={ref} {...props} castShadow>
-      <sphereGeometry />
-      <meshStandardMaterial color='orange' />
+      <boxGeometry args={[11, 1, 11, 10, 20]} />
+      <meshStandardMaterial color='orange' wireframe />
     </mesh>
   );
 }
@@ -39,8 +39,8 @@ const CanvasScene = () => {
     >
 
       <Lights />
-      {/* <Box position={[0, 0, 0]} /> */}
-      <ShadowPlane position={[0, 0, -0.5]} />
+      {/* <Box position={[0, -3, 0]} /> */}
+      {/* <ShadowPlane position={[0, 0, -0.5]} /> */}
       <OrbitControls />
       {/* <Leva hidden /> */}
       <Perf position="top-left" />
