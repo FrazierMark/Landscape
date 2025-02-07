@@ -4,7 +4,6 @@ import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { useRef, useEffect, useMemo } from 'react';
 import { useFrame, useLoader } from "@react-three/fiber";
 import { useControls } from 'leva';
-import ClippingPlaneHelper from './ClippinPlaneHelper';
 
 const Terrain = ({ position = [0, -0, 0], constant, color }) => {
 
@@ -36,7 +35,6 @@ const Terrain = ({ position = [0, -0, 0], constant, color }) => {
         "./mountains/Normal.png",
         "./mountains/Roughness.png",
         "./mountains/AO.png",
-        "./mountains/Metalness.png"
       ];
       break;
     case 'mud':
@@ -55,7 +53,6 @@ const Terrain = ({ position = [0, -0, 0], constant, color }) => {
         "./sand/Normal.png",
         "./sand/Roughness.png",
         "./sand/AO.png",
-        "./sand/Gloss.png"
       ];
       break;
     case 'rails':
@@ -65,8 +62,6 @@ const Terrain = ({ position = [0, -0, 0], constant, color }) => {
         "./rails/RAIL_NORMAL.png",
         "./rails/RAIL_ROUGHNESS.png",
         "./rails/RAIL_AO.png",
-        "./rails/RAIL_GLOSS.png",
-        "./cobblestones/COBBLESTONES_BUMP.png"
       ]
       break;
     case 'cobblestones':
@@ -76,8 +71,6 @@ const Terrain = ({ position = [0, -0, 0], constant, color }) => {
         "./cobblestones/COBBLESTONES_NORMAL.png",
         "./cobblestones/COBBLESTONES_ROUGHNESS.png",
         "./cobblestones/COBBLESTONES_AO.png",
-        "./cobblestones/COBBLESTONES_GLOSS.png",
-        "./cobblestones/COBBLESTONES_BUMP.png"
       ];
   }
 
@@ -87,10 +80,6 @@ const Terrain = ({ position = [0, -0, 0], constant, color }) => {
 
   const terrain = useRef();
   const materialRef = useRef();
-  const panelMaterialRef1 = useRef();
-  const panelMaterialRef2 = useRef();
-  const panelMaterialRef3 = useRef();
-  const panelMaterialRef4 = useRef();
 
   const clippingPlanes = useMemo(() => {
     // Define the normals for four clipping planes
@@ -111,27 +100,13 @@ const Terrain = ({ position = [0, -0, 0], constant, color }) => {
   }, [constant]);
 
 
-
-
-
-
-  // const sidePanelClippingPlane = new THREE.Plane(new THREE.Vector3(0, - 1, 0), constant)
-
-
   useEffect(() => {
-
 
     if (materialRef.current) {
       materialRef.current.clippingPlanes = clippingPlanes;
     }
 
-    // if (panelMaterialRef.current) {
-    //   panelMaterialRef.current.clippingPlanes = sidePanelClippingPlane;
-    // }
-
   }, [clippingPlanes]);
-
-
 
 
   const speedFactor = 0.1001 * speed
@@ -168,69 +143,8 @@ const Terrain = ({ position = [0, -0, 0], constant, color }) => {
           metalnessMap={metalness}
           bumpMap={bump}
           wireframe={wireframe}
-        // clippingPlanes={[clippingPlanes]}
         />
       </mesh>
-
-      {/* // <ClippingPlaneHelper ref={} key={i} position={plane.position} rotation={plane.rotation} constant={constant} /> */}
-
-      {/* <mesh position={[0, -2.5, -constant]} rotation={[0, 0, 0]} >
-          <planeGeometry attach="geometry" args={[15, 2]} />
-          <meshStandardMaterial
-            ref={panelMaterialRef1}
-            attach="material"
-            roughness={1}
-            metalness={0}
-            // color={transparent ? "#f5f5f5" : "#212121"}
-            // opacity={transparent ? 0 : 1}
-            // transparent={transparent}
-            side={THREE.DoubleSide}
-          />
-        </mesh>
-        
-        <mesh position={[-constant, -2.5, 0]} rotation={[0, Math.PI / 2, 0]} >
-          <planeGeometry attach="geometry" args={[15, 2]} />
-          <meshStandardMaterial
-            ref={panelMaterialRef2}
-            attach="material"
-            roughness={1}
-            metalness={0}
-            // color={transparent ? "#f5f5f5" : "#212121"}
-            // opacity={transparent ? 0 : 1}
-            // transparent={transparent}
-            side={THREE.DoubleSide}
-          />
-        </mesh>
-        
-        <mesh position={[constant, -2.5, 0]} rotation={[0, Math.PI / 2, 0]} >
-          <planeGeometry attach="geometry" args={[15, 2]} />
-          <meshStandardMaterial
-            ref={panelMaterialRef3}
-            attach="material"
-            roughness={1}
-            metalness={0}
-            // color={transparent ? "#f5f5f5" : "#212121"}
-            // opacity={transparent ? 0 : 1}
-            // transparent={transparent}
-            side={THREE.DoubleSide}
-          />
-        </mesh>
-        
-        <mesh position={[0, -2.5, constant]} rotation={[0, 0, 0]} >
-          <planeGeometry attach="geometry" args={[15, 2]} />
-          <meshStandardMaterial
-            ref={panelMaterialRef4}
-            attach="material"
-            roughness={1}
-            metalness={0}
-            // color={transparent ? "#f5f5f5" : "#212121"}
-            // opacity={transparent ? 0 : 1}
-            // transparent={transparent}
-            side={THREE.DoubleSide}
-          />
-        </mesh> */}
-
-
     </>
   );
 }

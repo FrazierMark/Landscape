@@ -4,7 +4,7 @@ import * as THREE from "three";
 const ClippingPlaneHelper = ({ position, transparent, rotation }) => {
   return (
     <mesh position={position} rotation={rotation}>
-      <planeGeometry attach="geometry" args={[15, 2]} />
+      <planeGeometry attach="geometry" args={[8, 5]} />
       <meshStandardMaterial
         attach="material"
         roughness={1}

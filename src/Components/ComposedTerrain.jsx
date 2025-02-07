@@ -15,20 +15,19 @@ const ComposedTerrain = () => {
   });
 
   const clippingPlanesHelperPositions = [
-    { position: [0, 2.5, -constant], rotation: [0, 0, 0], },
+    { position: [0, -1, -constant], rotation: [0, 0, 0], },
     {
-      position: [-constant, 2.5, 0],
+      position: [-constant, -1, 0],
       rotation: [0, Math.PI / 2, 0],
     },
     {
-      position: [constant, 2.5, 0],
+      position: [constant, -1, 0],
       rotation: [0, Math.PI / 2, 0],
     },
-    { position: [0, 2.5, constant], rotation: [0, 0, 0], },
+    { position: [0, -1, constant], rotation: [0, 0, 0], },
   ];
 
 
-  
   const red = new THREE.Color("red")
   const blue= new THREE.Color("blue")
   const green= new THREE.Color("green")
