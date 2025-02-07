@@ -33,9 +33,9 @@ const ComposedTerrain = () => {
 
   return (
     <>
-      <Terrain position={[0, -2.5, 29.982]} color={red} constant={constant} />
-      <Terrain position={[0, -2.5, 15]} color={blue} constant={constant} />
-      <Terrain position={[0, -2.5, 0]} color={green} constant={constant} />
+      <Terrain position={[0, -2.3, 29.982]} color={red} constant={constant} />
+      <Terrain position={[0, -2.3, 15]} color={blue} constant={constant} />
+      <Terrain position={[0, -2.3, 0]} color={green} constant={constant} />
 
       <BaseGlb position={[0, -2.8, 0 ]} scale={0.045} />
 
