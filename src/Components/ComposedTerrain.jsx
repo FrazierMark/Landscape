@@ -1,5 +1,4 @@
 /* eslint-disable react/no-unknown-property */
-import { Float } from '@react-three/drei';
 import { useControls } from "leva";
 import Terrain from './Terrain';
 import ClippingPlaneHelper from './ClippinPlaneHelper';

@@ -17,7 +17,8 @@ const Terrain = ({ position = [0, -0, 0], constant, color }) => {
         MudField: 'mud',
         Sand: 'sand',
         Rails: 'rails',
-        Cobblestones: 'cobblestones'
+        Cobblestones: 'cobblestones',
+        Coffee: 'coffee',
       },
       value: 'mountains'
     },
@@ -72,6 +73,16 @@ const Terrain = ({ position = [0, -0, 0], constant, color }) => {
         "./cobblestones/COBBLESTONES_ROUGHNESS.png",
         "./cobblestones/COBBLESTONES_AO.png",
       ];
+      break;
+    case 'coffee':
+      materialTextures = [
+        "./coffee/COFFEE_COLOR.png",
+        "./coffee/COFFEE_DEPTH.png",
+        "./coffee/COFFEE_NORMAL.png",
+        "./coffee/COFFEE_ROUGHNESS.png",
+        "./coffee/COFFEE_AO.png",
+      ];
+      break;
   }
 
   const [colorMap, displacementMap, normalMap, roughnessMap, aoMap, metalness, bump] = useLoader(
